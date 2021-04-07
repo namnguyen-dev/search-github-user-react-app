@@ -4,13 +4,12 @@ import styled from 'styled-components';
 
 const Followers = () => {
   const { followers } = React.useContext(GithubContext);
-  console.log(followers);
 
   return (
     <Wrapper>
       <div className="followers">
         {followers.map((follower, index) => {
-          const { avatar_url:img, html_url, login } = follower;
+          const { avatar_url: img, html_url, login } = follower;
           return (
             <article key={index}>
               <img src={img} alt={login} />
