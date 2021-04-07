@@ -19,29 +19,12 @@ const Repos = () => {
     }
     return total;
   }, {});
-
+ 
   const mostUsed = Object.values(languages)
     .sort((a, b) => {
       return b.value - a.value;
     })
     .slice(0, 5);
-    
-
-  const chartData = [
-    {
-      label: 'HTML',
-      value: '290',
-    },
-    {
-      label: 'CSS',
-      value: '260',
-    },
-
-    {
-      label: 'JavaScript',
-      value: '140',
-    },
-  ];
 
   // const mostPopular = mostUsed.map((item)=> {
   //   return {label:item.label, value: item.stars}
@@ -49,19 +32,51 @@ const Repos = () => {
   //   return b.value-a.value
   // })
 
-  const mostPopular = Object.values(languages).sort((a,b) => {
-    return b.stars - a.stars
-  }).map((item)=> {
-    return {...item,value:item.stars}
-  }).slice(0,5)
+  // Most stars per language
+  const mostPopular = Object.values(languages)
+    .sort((a, b) => {
+      return b.stars - a.stars;
+    })
+    .map(item => {
+      return { ...item, value: item.stars };
+    })
+    .slice(0, 5);
+
+  // stars, forks
+  let { stars, forks } = repos.reduce(
+    (total, item) => {
+      const { stargazers_count, name, forks } = item;
+      total.stars[name] = { label: name, value: stargazers_count };
+      total.forks[name] = { label: name, value: forks };
+      return total;
+    },
+    { stars: {}, forks: {} }
+  );
+
+  stars = Object.values(stars)
+    .sort((a, b) => {
+      return b.value - a.value;
+    })
+    .slice(0, 5);
+
+  forks = Object.values(forks)
+    .sort((a, b) => {
+      return b.value - a.value;
+    })
+    .slice(0, 5);
+
+  console.log(mostUsed);
+  console.log(stars);
+  console.log(mostPopular);
+  console.log(forks);
 
   return (
     <section className="section">
       <Wrapper className="section-center">
         <Pie3D data={mostUsed} />
-        <div></div>
-        <Doughnut2D data={mostPopular} />
-        <div></div>
+        <Column3D data={stars} />
+        <Doughnut2D data={mostUsed} />
+        <Bar3D data={forks} />
       </Wrapper>
     </section>
   );
