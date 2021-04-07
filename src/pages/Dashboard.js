@@ -8,8 +8,8 @@ const Dashboard = () => {
   return (
     <main>
       {/* <Navbar/> */}
-      {/* <Search/> */}
-      {/* <Info/> */}
+      <Search/>
+      <Info/>
       <User/>
       <Repos/>
     </main>

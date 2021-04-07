@@ -19,20 +19,20 @@ const Repos = () => {
     }
     return total;
   }, {});
- 
+
+  // Most used langues
   const mostUsed = Object.values(languages)
     .sort((a, b) => {
       return b.value - a.value;
     })
     .slice(0, 5);
 
+  // Most stars per language
   // const mostPopular = mostUsed.map((item)=> {
   //   return {label:item.label, value: item.stars}
   // }).sort((a,b)=> {
   //   return b.value-a.value
   // })
-
-  // Most stars per language
   const mostPopular = Object.values(languages)
     .sort((a, b) => {
       return b.stars - a.stars;
