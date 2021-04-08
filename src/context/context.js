@@ -15,7 +15,24 @@ const GithubProvider = ({ children }) => {
 
   // request loading
   const [requests, setRequests] = useState(0);
-  const [loading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const searchGithubUser = async user => {
+    toggleError();
+    // setLoading(true)
+    setIsLoading(true)
+    const response = await axios(`${rootUrl}/users/${user}`).catch(err => {
+      console.log(err);
+    });
+    console.log(response);
+    if (response) {
+      setGithubUser(response.data);
+    } else {
+      toggleError(true, 'there is no user with that username');
+    }
+    checkRequests()
+    setIsLoading(false)
+  };
 
   // error
   const [error, setError] = useState({ show: false, msg: '' });
@@ -41,7 +58,6 @@ const GithubProvider = ({ children }) => {
   }
 
   // error
-
   useEffect(checkRequests, []);
 
   return (
@@ -52,6 +68,8 @@ const GithubProvider = ({ children }) => {
         followers,
         requests,
         error,
+        searchGithubUser,
+        isLoading,
       }}
     >
       {children}
