@@ -6,8 +6,8 @@ import * as serviceWorker from './serviceWorker';
 import { GithubProvider } from './context/context';
 import { Auth0Provider } from '@auth0/auth0-react';
 
-const auth0Domain = `?client_id=${process.env.REACT_APP_AUTH0_DOMAIN}`;
-const auth0ID = `?client_id=${process.env.REACT_APP_AUTH0_ID}`;
+const auth0Domain = `${process.env.REACT_APP_AUTH0_DOMAIN}`;
+const auth0ID = `${process.env.REACT_APP_AUTH0_ID}`;
 
 ReactDOM.render(
   <React.StrictMode>
